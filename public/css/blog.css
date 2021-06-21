@@ -101,3 +101,84 @@ h1, h2, h3, h4, h5, h6 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
+video {
+
+	width: 100%;
+
+}
+
+#carouselExampleSlidesOnly {
+
+	margin-bottom: 1rem;
+
+}
+
+div.purchase {
+
+	border: 1px solid #e2e2e2;
+
+}
+
+div.position-sticky h4 {
+
+	color: #c81859;
+	font-family: 'Roboto', sans-serif !important;
+
+}
+
+div.purchase button {
+	
+	width: 100%;
+	background-color: #c81859;
+	border: none;
+
+}
+
+div.purchase button.btn-primary:hover {
+
+	cursor: pointer;
+	background-color: #ae1c52;
+	border: none;
+
+}
+
+ol.list-unstyled {
+
+	opacity: 0.5;
+
+}
+
+ol.list-unstyled li {
+
+	line-height: 34px;
+	padding-top: 4px;
+
+}
+
+ol.list-unstyled li table{
+
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+
+}
+
+ol.list-unstyled li table td.icon {
+
+	width: 30px;
+
+}
+
+ol.list-unstyled li table td.num {
+
+	width: 50px;
+	text-align: right;
+
+}
+
+.material-icons {
+
+	display: block;
+
+}

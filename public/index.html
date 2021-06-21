@@ -8,7 +8,9 @@
     <meta name="generator" content="Hugo 0.83.1">
     <title>Blog Template · Bootstrap v5.0</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/blog/">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     
 
@@ -47,8 +49,12 @@
     <link href="css/blog.css" rel="stylesheet">
   </head>
   <body>
-    
+    	
+	<!--
 	<header class="sticky-top navbar-light bg-light d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+		<a class="navbar-brand" href="#">
+			<img src='img/dash_model_format.png'/>
+		</a>
       <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <span class="fs-4">Simple header</span>
       </a>
@@ -57,16 +63,33 @@
         <li class="nav-item"><a href="#" class="nav-link">Github</a></li>
       </ul>
     </header>
+	-->
+
+
+<nav class="sticky-top border-bottom mb-4 navbar navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      DashGL Model Shop
+    </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link">Github</a></li>
+      </ul>
+  </div>
+</nav>
 
 <div class="container">
 <main class="container">
-  <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-      <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <video controls>
+		 <source src="img/YZVvHsa.mp4" type="video/mp4">
+		</video>
     </div>
   </div>
+</div>
 
   <div class="row g-5">
     <div class="col-md-8">
@@ -102,36 +125,47 @@
 	
 		<p>You're free to use this asset in any project, personal or commercial. There's no need to ask permission before using these. Giving attribution is not required, but is greatly appreciated!</p>
 
-        <h3>Sub-heading</h3>
-        <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-        <pre><code>Example code block</code></pre>
-        <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
       </article>
 
     </div>
 
     <div class="col-md-4">
       <div class="position-sticky" style="top: 5rem;">
-        <div class="p-4 mb-3 bg-light rounded">
-          <h4 class="fst-italic">About</h4>
-          <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+        <div class="p-3 mb-3 rounded purchase">
+          <h4>1,000.00 $trtl</h4>
+		  <button type="button" class="btn btn-primary">Checkout</button>
         </div>
 
-        <div class="p-4">
-          <h4 class="fst-italic">Archives</h4>
+        <div class="p-3">
+          <h4>Stats</h4>
           <ol class="list-unstyled mb-0">
-            <li><a href="#">March 2021</a></li>
-            <li><a href="#">February 2021</a></li>
-            <li><a href="#">January 2021</a></li>
-            <li><a href="#">December 2020</a></li>
-            <li><a href="#">November 2020</a></li>
-            <li><a href="#">October 2020</a></li>
-            <li><a href="#">September 2020</a></li>
-            <li><a href="#">August 2020</a></li>
-            <li><a href="#">July 2020</a></li>
-            <li><a href="#">June 2020</a></li>
-            <li><a href="#">May 2020</a></li>
-            <li><a href="#">April 2020</a></li>
+            <li>
+				<table>
+					<tr>
+						<td class='icon'>
+							<span class="material-icons md-18">visibility</span>
+						</td>
+						<td class='label'>Views</td>
+						<td class='num'>
+							<a>0</a>
+						</td>
+					</tr>
+				</table>
+			</li>
+            <li>
+				<table>
+					<tr>
+						<td class='icon'>
+							<span class="material-icons md-18">download</span>
+						</td>
+						<td class='label'>Downloads</td>
+						<td class='num'>
+							<a>0</a>
+						</td>
+					</tr>
+				</table>
+			</li>
+
           </ol>
         </div>
 
@@ -143,9 +177,11 @@
 </div>
 
 <footer class="blog-footer">
-  <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+  <p>Copyright &copy; 2021 Benjamin Collins MIT License</p>
   <p>
-    <a href="#">Back to top</a>
+<a href="https://turtlepay.io">
+  <img src="https://badge.turtlepay.io/" alt="Powered by TurtlePay" />
+</a>
   </p>
 </footer>
 
