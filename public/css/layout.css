@@ -5,6 +5,18 @@
         -moz-user-select: none;
         user-select: none;
       }
+      
+	  @media (max-width: 768px) {
+
+        .col-md-4 {
+          margin-top: 0 !important;
+        }
+
+		.blog-post {
+			margin-bottom: 2rem !important;
+		}
+
+      }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
