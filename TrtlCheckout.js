@@ -8,10 +8,12 @@ const port = 2800
 const addr = 'TRTLv3bpWo5KR6ACMJ4cJeXq2CVtEwEwZhTJvSyriKjYjWEMS9Rb9Wwf4mDo3WTzDZNP1gPHYp8bJ7VYCgbHGxcvgFjXPUsUcgB';
 const view = '9fcb0087252c147657af23700810cad0bceee0b4fdf2a4479406b9f2636eae0d';
 
+app.use(express.json());
+
 app.get('/trtl/prepare', async function(req, res) {
 
 	const body = {
-		amount : 100000,
+		amount : 10000,
 		address : addr,
 		privateViewKey : view,
 		callback : "https://trtl.dashgl.com/trtl/process"
@@ -36,10 +38,11 @@ app.get('/trtl/prepare', async function(req, res) {
 
 });
 
-app.all('/trtl/process', function(req, res) {
+app.post('/trtl/process', function(req, res) {
 
 	console.log('ConfIRMED PAYMENT!!!');
 	console.log(req.body);
+	res.end("okay thank you");
 
 });
 
