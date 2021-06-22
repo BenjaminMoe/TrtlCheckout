@@ -157,15 +157,17 @@ div.position-sticky h4 {
 div.purchase button {
 	
 	width: 100%;
-	background-color: #c81859;
+	background-color: #c81859 !important;
 	border: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
 
 }
 
 div.purchase button.btn-primary:hover {
 
 	cursor: pointer;
-	background-color: #ae1c52;
+	background-color: #ae1c52 !important;
 	border: none;
 
 }
@@ -207,5 +209,61 @@ ol.list-unstyled li table td.num {
 .material-icons {
 
 	display: block;
+
+}
+	
+div.modal-body {
+	font-family: 'Roboto', sans-serif !important;
+}
+
+div.modal-body img {
+
+	display: block;
+	margin: auto;
+
+}
+
+div.modal-body div.qrCode {
+
+	display: block;
+	margin: auto;
+	width: 350px;
+	height: 350px;
+
+}
+
+div.modal-body p {
+
+	text-align: center;
+
+}
+
+div.modal-body div.tbl {
+
+	width: 90%;
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+	
+}
+
+div.modal-body div.tbl table {
+	
+	table-layout: fixed;
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 18px;
+
+}
+
+div.modal-body div.tbl table tr td:first-child {
+
+	font-weight: bold;
+
+}
+
+div.modal-body div.tbl table tr td:last-child {
+
+	text-align: right;
 
 }
