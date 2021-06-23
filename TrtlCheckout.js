@@ -1,5 +1,6 @@
 "use strict";
 
+const uniqid = require('uniqid')
 const fetch = require('node-fetch')
 const express = require('express')
 const WebSocket = require('ws')
@@ -13,6 +14,8 @@ const view = '9fcb0087252c147657af23700810cad0bceee0b4fdf2a4479406b9f2636eae0d';
 const server = http.createServer(app);
 app.use(express.json());
 
+const mem = {}
+
 app.get('/trtl/prepare', async function(req, res) {
 
 	const body = {
@@ -20,8 +23,7 @@ app.get('/trtl/prepare', async function(req, res) {
 		address : addr,
 		privateViewKey : view,
 		callback : "https://trtl.dashgl.com/trtl/process",
-		confirmations : 30,
-		name : "DashGL Shop"
+		name : uniqid()
 	}
 
 	let prep = await fetch('https://api.turtlepay.io/v2/new', {
@@ -33,21 +35,46 @@ app.get('/trtl/prepare', async function(req, res) {
 		body: JSON.stringify(body)
 	});
 
-	console.log(prep);
-
 	let data = await prep.json();
+	console.log(data);
+
 	res.json(data);
 
 });
 
+app.get('/assets/dashie.rar*', async function(req, res, next) {
 
-let callbacks = 0;
+	console.log('An attempt was made!!!!');
+	next();
+
+});
+
+
 app.post('/trtl/process', function(req, res) {
-	
-	callbacks++;
-	console.log('ConfIRMED PAYMENT!!!', callbacks);
-	console.log(req.body);
 
+	console.log("%s %s %s", req.body.paymentId, req.body.status, req.body.confirmationsRemaining);
+
+	if(!mem[req.body.paymentId]) {
+		console.log('ConfIRMED PAYMENT!!!');
+		console.log(req.body);
+		wss.clients.forEach(function each(client) {
+			if(client.paymentId !== req.body.paymentId) {
+				return;
+			}
+			if (client.readyState !== WebSocket.OPEN) {
+				return;
+			}
+			
+			console.log('Payment confirmed, sending!!');
+			client.send('Payment confirmed');
+		});
+	}
+
+	if(req.body.status !== 102) {
+		console.log(req.body);
+	}
+
+	mem[req.body.paymentId]  = req.body.status;
 	res.status(200).end();
 
 });
@@ -56,17 +83,22 @@ app.use(express.static('public'))
 
 const wss = new WebSocket.Server({ server });
 wss.on('connection', (ws) => {
-
-	//connection is up, let's add a simple simple event
+	
 	ws.on('message', (message) => {
 
-		//log the received message and send it back to the client
-		console.log('received: %s', message);
-		ws.send(`Hello, you sent -> ${message}`);
-	});
+		if(message === 'ping') {
+			return;
+		}
+		
+		console.log(message);
+		console.log('Setting payment id for ws client', message);
+		ws.paymentId = message;
 
-	//send immediatly a feedback to the incoming connection	
-	ws.send('Hi there, I am a WebSocket server');
+		if(mem[message]) {
+			console.log('Payment confirmed, reporting');
+			ws.send('Payment confirmed');
+		}
+	});
 
 });
 
