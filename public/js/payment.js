@@ -6,6 +6,8 @@ const qrcode = new QRCode(document.getElementById("qrCode"), {
 	text : ''
 });
 
+let socket;
+
 $("#checkout").click(async function() {
 
 	let res = await fetch('/trtl/prepare');
@@ -14,7 +16,7 @@ $("#checkout").click(async function() {
 	var n = Math.floor(Math.random() * 11);
 	var k = Math.floor(Math.random() * 1000000);
 	var m = String.fromCharCode(n) + k;
-	m = '';
+	// m = '';
 
 	let name = window.encodeURIComponent("DashGL Shop" + m);
 	let base = data.qrCode.substr(58);
@@ -25,5 +27,26 @@ $("#checkout").click(async function() {
 	$('#link').attr('href', url);
 	
 	$("#exampleModal").modal("show");
+
+	socket = new WebSocket('wss://trtl.dashgl.com/ws');
+
+	socket.addEventListener('open', function (event) {
+		socket.send('Hello Server!');
+	});
+
+	socket.addEventListener('message', function (event) {
+		console.log('Message from server ', event.data);
+	});
+
+	socket.addEventListener('close', function (event) {
+		console.log('Socket closed!!!');
+	});
+
+});
+
+$('#exampleModal').on('hidden.bs.modal', function () {
+	
+	console.log("Modal closed");
+	socket.close();
 
 });

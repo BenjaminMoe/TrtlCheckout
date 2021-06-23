@@ -2,6 +2,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "fetch": "^1.1.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "sqlite3": "^5.0.2",
+    "websocket": "^1.0.34",
+    "ws": "^7.5.0"
   }
 }
