@@ -97,7 +97,8 @@ app.get('/trtl/prepare', async function(req, res) {
 		address : addr,
 		privateViewKey : view,
 		callback : "https://shellshop.lol/trtl/process",
-		name : "ShellShop_" + random()
+		name : "ShellShop_" + random(),
+		confirmations : 10
 	}
 
 	let prep = await fetch('https://api.turtlepay.io/v2/new', {
@@ -146,6 +147,7 @@ app.get('/assets/dashie.rar*', async function(req, res, next) {
 	
 	db.run(sql, function(err) {
 		if(err) {
+			console.log("Error 100");
 			throw err;
 		}
 	});
@@ -201,6 +203,7 @@ app.post('/trtl/process', function(req, res) {
 
 		db.run(sql, args, function(err) {
 			if(err) {
+				console.log("Error 200");
 				throw err;
 			}
 		});
@@ -221,7 +224,7 @@ app.post('/trtl/process', function(req, res) {
 				dat_stats
 			SET
 				completeTime = ?,
-				details + ?
+				details = ?
 			WHERE
 				paymentId = ?
 		`;
@@ -234,6 +237,7 @@ app.post('/trtl/process', function(req, res) {
 
 		db.run(sql, args, function(err) {
 			if(err) {
+				console.log("Error 300");
 				throw err;
 			}
 		});
@@ -264,6 +268,7 @@ app.get(['/', 'index.html'], function(req, res) {
 
 	db.get(sql, function(err, data) {
 		if(err) {
+			console.log("Error 500");
 			throw err;
 		}
 		
@@ -287,6 +292,7 @@ app.get(['/', 'index.html'], function(req, res) {
 	
 	db.run(sql, function(err) {
 		if(err) {
+			console.log("Error 600");
 			throw err;
 		}
 	});
