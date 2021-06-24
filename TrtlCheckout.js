@@ -16,14 +16,28 @@ app.use(express.json());
 
 const mem = {}
 
+function random (len) {
+
+	len = len || 4;
+    let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+    // Pick characers randomly
+    let str = '';
+    for (let i = 0; i < length; i++) {
+        str += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return str;
+
+};
+
 app.get('/trtl/prepare', async function(req, res) {
 
 	const body = {
 		amount : 10000,
 		address : addr,
 		privateViewKey : view,
-		callback : "https://trtl.dashgl.com/trtl/process",
-		name : uniqid()
+		callback : "https://shellshop.lol/trtl/process",
+		name : "ShellShop_" + random()
 	}
 
 	let prep = await fetch('https://api.turtlepay.io/v2/new', {

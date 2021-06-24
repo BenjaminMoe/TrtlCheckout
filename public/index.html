@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A simple product page with checkout powered by Turtlecoin">
     <meta name="author" content="Benjamin Collins">
-    <title>Dash Model Format</title>
+    <title>Shell Shop</title>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
@@ -13,7 +13,7 @@
 
     <!-- Bootstrap core CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<link rel="icon" href="img/dash_model_format.png">
+<link rel="icon" href="img/1f422.png">
 <meta name="theme-color" content="#7952b3">
 
     <!-- Custom styles for this template -->
@@ -47,7 +47,7 @@
 						Checkout Total:
 					</td>
 					<td>
-						1,000.00 TRTL
+						500.00 TRTL
 					</td>
 				</tr>
 			</table>
@@ -68,7 +68,7 @@
     </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link">Github</a></li>
+        <li class="nav-item"><a href="https://github.com/BenjaminMoe/TrtlCheckout" class="nav-link">Github</a></li>
       </ul>
   </div>
 </nav>
@@ -123,10 +123,24 @@
 		<h2>Terms of Service</h2>
 
 		<p>
-			<li>Created as a proof of concept (may have errors)</li>
-			<li>You will need to wait about 3 minutes for payment to complete</li>
-			<li>Model can be downloaded for free</li>
-			<li>Intentionally small amount, no refunds</li>
+			<p>
+			This is a simple page that was created for a proof of concept to use Turtlecoin
+			as a payment option for online checkout. To complete the payment process, click
+			on the 'Checkout' button, scan the QR code with the TonChan wallet, and send
+			the amount. From there confirmation of the payment will take anywhere from
+			two to five minutes. After which, your download will start automatically.
+			</p>
+
+			<p>
+			As this page was created as a proof of concept, the amount required was
+			created to be intentionally small. The model offered as a download can be
+			download directly from <a href='https://skfb.ly/6TwpE'>sketchfab</a>. 
+			And no refunds will be offered. After
+			making this, I have made <a href='https://github.com/turtlecoin/turtlecoin-mobile-wallet/issues/153'>suggestions</a> 
+			for making the status of payments
+			more transparent. 
+			</p>
+
 		</p>
 
       </article>
@@ -136,7 +150,7 @@
     <div class="col-md-4">
       <div class="position-sticky" style="top: 5rem;">
         <div class="p-3 mb-3 rounded purchase">
-          <h4>1,000.00 $trtl</h4>
+          <h4 class='price'>500.00 $trtl</h4>
 		  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Checkout</button> -->
 		  <button type="button" class="btn btn-primary" id="checkout">Checkout</button>
         </div>

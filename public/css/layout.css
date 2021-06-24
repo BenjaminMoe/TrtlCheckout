@@ -154,6 +154,12 @@ div.position-sticky h4 {
 
 }
 
+div.position-sticky h4.price {
+
+	letter-spacing: 1px;
+
+}
+
 div.purchase button {
 	
 	width: 100%;
@@ -229,6 +235,13 @@ div.modal-body div.qrCode {
 	margin: auto;
 	width: 350px;
 	height: 350px;
+	max-width: 100%;
+
+}
+
+div.modal-body div.qrCode img {
+
+	max-width: 100%;
 
 }
 
