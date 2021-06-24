@@ -124,6 +124,15 @@ function download() {
 	a.setAttribute("download", 'dashie.rar');
 	a.click();
 
+	console.log('Updating Download count!!');
+
+	let d = $('#downloads').text();
+	console.log(d);
+	let count = parseInt(d.replace(/,/g, ''));
+	count++;
+	console.log(count);
+	$('#downloads').text(count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+
 }
 
 $("#checkout").click(async function() {
