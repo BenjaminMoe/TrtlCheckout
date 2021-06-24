@@ -270,8 +270,17 @@ div.modal-body div.qrCode {
 
 }
 
-div.modal-body div.qrCode img {
+#qrCode {
 
+	display: flex;
+	justify-content: center;
+
+
+}
+
+#qrCode img {
+	
+	margin: auto;
 	max-width: 100%;
 
 }

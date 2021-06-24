@@ -136,29 +136,33 @@ app.get('/trtl/prepare', async function(req, res) {
 
 app.get('/assets/dashie.rar*', async function(req, res, next) {
 
-	let sql = `
-		UPDATE
-			dat_models
-		SET 
-			downloads = downloads + 1
-		WHERE
-			name = 'dashie'
-	`;
-	
-	db.run(sql, function(err) {
-		if(err) {
-			console.log("Error 100");
-			throw err;
-		}
-	});
-
 	console.log('An attempt was made!!!!');
 	console.log(req.query.paymentId);
 	console.log(' ----- ');
 	
-	if(!mem[req.query.paymentId]) {
+	if(req.query.paymentId === 'bypass') {
+		// Do nothing, force allow the user to download
+	} else if(!mem[req.query.paymentId]) {
 		res.status(403);
 		return res.end('Not Authorized');
+	} else {
+
+		let sql = `
+			UPDATE
+				dat_models
+			SET 
+				downloads = downloads + 1
+			WHERE
+				name = 'dashie'
+		`;
+	
+		db.run(sql, function(err) {
+			if(err) {
+				console.log("Error 100");
+				throw err;
+			}
+		});
+
 	}
 
 	next();
