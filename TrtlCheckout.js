@@ -1,3 +1,30 @@
+
+/******************************************************************************
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Benjamin Collins benjamin@collins.moe
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ *****************************************************************************/
+
 "use strict";
 
 const url = require('url');
@@ -5,6 +32,8 @@ const uniqid = require('uniqid')
 const fetch = require('node-fetch')
 const express = require('express')
 const WebSocket = require('ws')
+const sqlite3 = require('sqlite3').verbose();
+
 const http = require('http');
 const app = express()
 const port = 2800
@@ -14,6 +43,26 @@ const view = '9fcb0087252c147657af23700810cad0bceee0b4fdf2a4479406b9f2636eae0d';
 
 const server = http.createServer(app);
 app.use(express.json());
+
+const db = new sqlite3.Database('users.sqlite');
+db.serialize(function() {
+
+	db.run(`
+		CREATE TABLE IF NOT EXISTS dat_models (
+			name VARCHAR(255) UNIQUE,
+			views INT DEFAULT 0,
+			downloads INT DEFAULT 0
+		)
+	`);
+
+	db.run(`
+		INSERT OR IGNORE INTO dat_models 
+			( name ) 
+		VALUES
+			( 'dashie' )
+	`)
+
+});
 
 const mem = {}
 
