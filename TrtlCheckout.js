@@ -1,5 +1,6 @@
 "use strict";
 
+const url = require('url');
 const uniqid = require('uniqid')
 const fetch = require('node-fetch')
 const express = require('express')
@@ -23,7 +24,7 @@ function random (len) {
 
     // Pick characers randomly
     let str = '';
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < len; i++) {
         str += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return str;
@@ -59,6 +60,14 @@ app.get('/trtl/prepare', async function(req, res) {
 app.get('/assets/dashie.rar*', async function(req, res, next) {
 
 	console.log('An attempt was made!!!!');
+	console.log(req.query.paymentId);
+	console.log(' ----- ');
+	
+	if(!mem[req.query.paymentId]) {
+		res.status(403);
+		return res.end('Not Authorized');
+	}
+
 	next();
 
 });
@@ -66,7 +75,9 @@ app.get('/assets/dashie.rar*', async function(req, res, next) {
 
 app.post('/trtl/process', function(req, res) {
 
-	console.log("%s %s %s", req.body.paymentId, req.body.status, req.body.confirmationsRemaining);
+	if(req.body.confirmationsRemaining % 10 === 0) {
+		console.log("%s %s %s", req.body.paymentId, req.body.status, req.body.confirmationsRemaining);
+	}
 
 	if(!mem[req.body.paymentId]) {
 		console.log('ConfIRMED PAYMENT!!!');
@@ -84,11 +95,20 @@ app.post('/trtl/process', function(req, res) {
 		});
 	}
 
-	if(req.body.status !== 102) {
+	if(req.body.status === 200) {
+		
+		console.log('Complete!!');
+		console.log(req.body);
+
+		setTimeout( function() {
+			delete mem[req.body.paymentId];
+		}, 3600000);
+
+	} else if(req.body.status !== 102) {
 		console.log(req.body);
 	}
 
-	mem[req.body.paymentId]  = req.body.status;
+	mem[req.body.paymentId] = req.body.status;
 	res.status(200).end();
 
 });

@@ -8,6 +8,7 @@ const qrcode = new QRCode(document.getElementById("qrCode"), {
 
 let paymentId, interval;
 let paymentComplete = false;
+let elapsed, elim;
 
 let payStart, payStop;
 let socket, data, startTime, stopTime;
@@ -23,7 +24,8 @@ function makeSocket() {
 			socket.send(paymentId);
 		}
 
-		interval = setInterval(ping, 5000);
+		interval = setInterval(ping, 15000);
+		elim = setInterval(track, 60000);
 
 	});
 
@@ -39,6 +41,7 @@ function makeSocket() {
 		paymentComplete = true;
 		socket.close();
 		clearInterval(interval);
+		clearInterval(elim);
 		payStop = Date.now();
 
 		let ms = payStop - payStart;
@@ -47,8 +50,12 @@ function makeSocket() {
 		let s = Math.floor(ms / 1000);
 		console.log("%s seconds", s);
 		let min = s / 60;
-		console.log("Time Taken: %s", min.toFixed(2));
+		console.log("Time Taken: %s minutes", min.toFixed(2));
 		console.log('Payment CONFIRMED!!!!');
+
+		$("#exampleModal").modal("hide");
+		$("#checkout").text('Download');
+		download();
 
 	});
 
@@ -68,10 +75,27 @@ function makeSocket() {
 
 }
 
+function track() {
+
+	elapsed = elapsed || 0;
+	elapsed++;
+	console.log("%s minute(s) have passed", elapsed);
+
+}
+
 function ping() {
 
 	console.log('sending ping');
 	socket.send('ping');
+
+}
+
+function download() {
+	
+	var a = document.createElement("a")
+	a.href = 'assets/dashie.rar?paymentId=' + paymentId;
+	a.setAttribute("download", 'dashie.rar');
+	a.click();
 
 }
 
@@ -101,7 +125,8 @@ $("#checkout").click(async function() {
 		$("#exampleModal").modal("show");
 
 	} else {
-
+		
+		download();
 		console.log('We do the download!!!');
 
 	}
