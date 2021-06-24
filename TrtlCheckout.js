@@ -93,7 +93,7 @@ function random (len) {
 app.get('/trtl/prepare', async function(req, res) {
 
 	const body = {
-		amount : 10000,
+		amount : 50000,
 		address : addr,
 		privateViewKey : view,
 		callback : "https://shellshop.lol/trtl/process",
