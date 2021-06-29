@@ -28,18 +28,168 @@
 "use strict";
 
 const fs = require('fs')
-const fetch = require('node-fetch')
-const express = require('express')
-const WebSocket = require('ws')
+const express = require('express');
+const WebSocket = require('ws');
+const crypto = require('crypto');
 const sqlite3 = require('sqlite3').verbose();
 const Handlebars = require('handlebars');
+const WB = require('turtlecoin-wallet-backend');
+const daemon = new WB.Daemon('192.168.10.103', 11898);
 
 const http = require('http');
 const app = express()
 const port = 2800
 
-const addr = 'TRTLv3bpWo5KR6ACMJ4cJeXq2CVtEwEwZhTJvSyriKjYjWEMS9Rb9Wwf4mDo3WTzDZNP1gPHYp8bJ7VYCgbHGxcvgFjXPUsUcgB';
-const view = '9fcb0087252c147657af23700810cad0bceee0b4fdf2a4479406b9f2636eae0d';
+const wallet = {
+	api : null,
+	filename : 'mywallet.wallet',
+	password : 'keyboard_cat'
+}
+
+if(fs.existsSync(wallet.filename)) {
+	open_wallet();
+} else {
+	create_wallet();
+}
+
+async function open_wallet() {
+
+	console.log('Open Existing wallet!!');
+	
+	const w = await WB.WalletBackend.openWalletFromFile(daemon, wallet.filename, wallet.password);
+	let err = w[1];
+	if(err) {
+		throw err;
+	}
+
+	wallet.api = w[0];
+
+	try {
+		await wallet.api.start();
+	} catch(err) {
+		throw err;
+	}
+
+	// Do the stuff and things
+
+	show_address();
+	append_events();
+	
+}
+
+async function create_wallet() {
+	
+	console.log('Create a new wallet!!');
+
+	try {
+		wallet.api = await WB.WalletBackend.createWallet(daemon);
+	} catch(err) {
+		throw err;
+	}
+
+	console.log(wallet.api);
+	
+	console.log('Created wallet');
+	
+	try {
+		await wallet.api.start();
+	} catch(err) {
+		throw err;
+	}
+	
+	console.log('Started wallet');
+	wallet.api.saveWalletToFile(wallet.filename, wallet.password);
+
+	// Do the stuff and things
+
+	show_address();
+	append_events();
+
+}
+
+async function show_address() {
+	
+	let i = 0;
+	for (const address of wallet.api.getAddresses()) {
+		i++;
+		console.log(`Address [${i}]: ${address}`);
+		wallet.address = address
+	}
+	
+	const privateViewKey = wallet.api.getPrivateViewKey();
+	console.log('Private view key:', privateViewKey);	
+	await wallet.api.rescan();
+
+}
+
+function append_events() {
+
+	wallet.interval = setInterval(async function() {
+
+        const [unlocked, locked] = await wallet.api.getBalance();
+        console.log("Balance: %s %s", unlocked, locked);
+        const [walletBlockCount, localDaemonBlockCount, networkBlockCount] = wallet.api.getSyncStatus();
+        console.log("Wallet block count: ", walletBlockCount);
+        console.log("Local Daemon Block Count: ", localDaemonBlockCount);
+        console.log("Network Block Count: ", networkBlockCount);
+
+    }, 60000);
+
+
+	wallet.api.on('transaction', async (transaction) => {
+		console.log('GOT A TRANSACTION!!!');
+		console.log(transaction);
+
+		const tx = await wallet.api.getTransaction(transaction.hash);
+
+		if (tx) {
+			console.log(`Tx ${tx.hash} is worth ${WB.prettyPrintAmount(tx.totalAmount())}`);
+			console.log(tx);
+		} else {
+			console.log("Couldn't find transaction! Is your wallet synced?");
+		}
+		
+		mem[transaction.paymentID] = 200;
+		setTimeout( function() {
+			delete mem[transaction.paymentID];
+		}, 3600000);
+		
+		wss.clients.forEach(function each(client) {
+			if(client.paymentId !== transaction.paymentID) {
+				return;
+			}
+			if (client.readyState !== WebSocket.OPEN) {
+				return;
+			}
+			
+			console.log('Payment confirmed, sending!!');
+			client.send('Payment confirmed');
+		});
+
+		let sql = `
+			UPDATE 
+				dat_stats
+			SET
+				confTime = ?
+			WHERE
+				paymentId = ?
+		`;
+	
+		let args = [
+			Date.now(),
+			transaction.paymentID
+		];
+
+		db.run(sql, args, function(err) {
+			if(err) {
+				console.log("Error 200");
+				throw err;
+			}
+		});
+
+	});
+
+}
 
 const server = http.createServer(app);
 app.use(express.json());
@@ -76,60 +226,50 @@ db.serialize(function() {
 
 const mem = {}
 
-function random (len) {
-
-	len = len || 4;
-    let chars = 'abcdefghijklmnopqrstuvwxyz';
-
-    // Pick characers randomly
-    let str = '';
-    for (let i = 0; i < len; i++) {
-        str += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return str;
-
-};
 
 app.get('/trtl/prepare', async function(req, res) {
 
-	const body = {
-		amount : 50000,
-		address : addr,
-		privateViewKey : view,
-		callback : "https://shellshop.lol/trtl/process",
-		name : "ShellShop_" + random(),
-		confirmations : 10
-	}
-
-	let prep = await fetch('https://api.turtlepay.io/v2/new', {
-		headers: {
-			'Accept' : 'application/json',
-			'Content-Type' : 'application/json'
-		},
-		method : "POST",
-		body: JSON.stringify(body)
-	});
-
-	let data = await prep.json();
-
-	res.json(data);
-
-	let sql = `
-		INSERT INTO dat_stats
-			( paymentId, startTime)
-		VALUES 
-			( ?, ? )
-	`;
-
-	let args = [
-		data.paymendId || data.paymentId,
-		Date.now()
-	];
-
-	db.run(sql, args, function(err) {
-		if(err) {
+	crypto.randomBytes(32, (err, buf) => {
+		if (err) {
 			throw err;
 		}
+		const paymentid = buf.toString('hex');
+		console.log("The paymentid is: " + paymentid);
+		
+		let addr = wallet.address;
+		let name = "ShellShop_node";
+		let amount = 10000;
+		
+		const url = `turtlecoin://${addr}?amount=${amount}&name=${name}&paymentid=${paymentid}`;
+		
+		let data = {
+			name : name,
+			paymentId : paymentid,
+			address : addr,
+			amount : amount,
+			url : url
+		}
+		
+		let sql = `
+			INSERT INTO dat_stats
+				( paymentId, startTime)
+			VALUES 
+				( ?, ? )
+		`;
+
+		let args = [
+			data.paymentId,
+			Date.now()
+		];
+
+		db.run(sql, args, function(err) {
+			if(err) {
+				throw err;
+			}
+		});
+		
+		res.json(data);
+
 	});
 
 });
@@ -166,92 +306,6 @@ app.get('/assets/dashie.rar*', async function(req, res, next) {
 	}
 
 	next();
-
-});
-
-
-app.post('/trtl/process', function(req, res) {
-
-	if(req.body.confirmationsRemaining % 10 === 0) {
-		console.log("%s %s %s", req.body.paymentId, req.body.status, req.body.confirmationsRemaining);
-	}
-
-	if(!mem[req.body.paymentId]) {
-		console.log('ConfIRMED PAYMENT!!!');
-		console.log(req.body);
-		wss.clients.forEach(function each(client) {
-			if(client.paymentId !== req.body.paymentId) {
-				return;
-			}
-			if (client.readyState !== WebSocket.OPEN) {
-				return;
-			}
-			
-			console.log('Payment confirmed, sending!!');
-			client.send('Payment confirmed');
-		});
-
-		let sql = `
-			UPDATE 
-				dat_stats
-			SET
-				confTime = ?
-			WHERE
-				paymentId = ?
-		`;
-	
-		let args = [
-			Date.now(),
-			req.body.paymentId
-		];
-
-		db.run(sql, args, function(err) {
-			if(err) {
-				console.log("Error 200");
-				throw err;
-			}
-		});
-
-	}
-
-	if(req.body.status === 200) {
-		
-		console.log('Complete!!');
-		console.log(req.body);
-
-		setTimeout( function() {
-			delete mem[req.body.paymentId];
-		}, 3600000);
-
-		let sql = `
-			UPDATE 
-				dat_stats
-			SET
-				completeTime = ?,
-				details = ?
-			WHERE
-				paymentId = ?
-		`;
-	
-		let args = [
-			Date.now(),
-			JSON.stringify(req.body),
-			req.body.paymentId
-		];
-
-		db.run(sql, args, function(err) {
-			if(err) {
-				console.log("Error 300");
-				throw err;
-			}
-		});
-
-	} else if(req.body.status !== 102) {
-		console.log(req.body);
-	}
-
-	mem[req.body.paymentId] = req.body.status;
-	res.status(200).end();
 
 });
 
@@ -329,3 +383,17 @@ wss.on('connection', (ws) => {
 server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+function exit_handler() {
+	
+	console.log('Stopping the wallet!!');
+	wallet.api.stop();
+	clearInterval(wallet.interval);
+
+}
+
+process.on('exit', exit_handler);
+process.on('SIGINT', exit_handler);
+process.on('SIGUSR1', exit_handler);
+process.on('SIGUSR2', exit_handler);
+process.on('uncaughtException', exit_handler);

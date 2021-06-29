@@ -42,7 +42,7 @@ let socket, data, startTime, stopTime;
 
 function makeSocket() {
 
-	socket = new WebSocket('wss://trtl.dashgl.com/ws');
+	socket = new WebSocket('ws://localhost:2800/ws');
 	socket.addEventListener('open', function (event) {
 		console.log('Socket open!!!');
 		
@@ -141,16 +141,14 @@ $("#checkout").click(async function() {
 
 		let res = await fetch('/trtl/prepare');
 		data = await res.json();
-
 		console.log(data);
-		let url = data.qrCode.substr(58);
 
 		qrcode.clear();
-		qrcode.makeCode(url);
-		$('#link').attr('href', url);
+		qrcode.makeCode(data.url);
+		$('#link').attr('href', data.url);
 	
 		$("#exampleModal").modal("show");
-		paymentId = data.paymendId || data.paymentId;
+		paymentId = data.paymentId;
 		console.log('Sending payment ID', paymentId);
 		makeSocket();
 		
