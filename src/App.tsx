@@ -14,9 +14,9 @@ import ShellGallery from './components/ShellGallery';
 
 // Define Application
 
-class App extends React.Component {
+class App extends React.Component{
 
-	constructor(props: Props) {
+	constructor(props: any) {
 		super(props);
 	}
 

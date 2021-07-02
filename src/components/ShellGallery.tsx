@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MySummary: JSX.Element = () => {
+const MySummary = (props: Props): ReactNode => {
 
 	return (
 		<div className="py-5 text-center container turtle-bg">
@@ -24,7 +24,7 @@ const MySummary: JSX.Element = () => {
 
 }
 
-const MyCard: JSX.Element = (props: Props) => {
+const MyCard = (props: Props): ReactNode => {
 
 	return (
 		<div className="col">
@@ -53,7 +53,7 @@ const MyCard: JSX.Element = (props: Props) => {
 
 }
 
-const MyPagination: JSX.Element = (props: Props) => {
+const MyPagination = (props: Props): ReactNode => {
 
     return (
 		<nav className='my-pagination' aria-label="Page navigation example">
@@ -79,8 +79,6 @@ const MyPagination: JSX.Element = (props: Props) => {
 
 }
 
-
-
 class ShellGallery extends React.Component {
 
 	constructor(props) {
@@ -93,7 +91,7 @@ class ShellGallery extends React.Component {
 
 	}
 
-	render: JSX.Element = () => {
+	render: ReactNode = () => {
 
 		return (
 			<section style={{ display : 'none' }}>

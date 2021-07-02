@@ -12,7 +12,7 @@ class ShellHeader extends React.Component {
 
 	}
 	
-	handleToggleClick = evt => {
+	handleToggleClick: void = evt => {
 		
 		this.setState({
 			open : !this.state.open
@@ -20,7 +20,7 @@ class ShellHeader extends React.Component {
 
 	}
 
-	render: JSX.Element = (props: Props)=> {
+	render: ReactNode = (props: Props)=> {
 
 		return (
 			<header className="sticky-top border-bottom mb-4 navbar navbar-light bg-light">
