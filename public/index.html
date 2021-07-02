@@ -1,222 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A simple product page with checkout powered by Turtlecoin">
-    <meta name="author" content="Benjamin Collins">
-    <title>Shell Shop</title>
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Bootstrap core CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<link rel="icon" href="img/1f422.png">
-<meta name="theme-color" content="#7952b3">
-
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/layout.css" rel="stylesheet">
-  </head>
-  <body>
- 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Checkout With TurtlePay</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
- 		
-		<p>On mobile click on the QRCode to open Tonchan for payment</p>
-
-		<a id='link'  href=''>
-			<div id='qrCode'></div>
-		</a>
-
-		<div class='tbl'>
-			<table>
-				<tr>
-					<td>
-						Checkout Total:
-					</td>
-					<td>
-						500.00 TRTL
-					</td>
-				</tr>
-			</table>
-		</div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<nav class="sticky-top border-bottom mb-4 navbar navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      Shell Shop
-    </a>
-
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="https://github.com/BenjaminMoe/TrtlCheckout" class="nav-link">Github</a></li>
-      </ul>
-  </div>
-</nav>
-
-<div class="container">
-<main class="container">
-
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <video controls>
-		 <source src="img/YZVvHsa.mp4" type="video/mp4">
-		</video>
-    </div>
-  </div>
-</div>
-
-  <div class="row g-5">
-    <div class="col-md-8">
-      <h3 class="pb-4 mb-4 border-bottom">
-        Dashie the Cyber-Bunny
-      </h3>
-
-      <article class="blog-post">
-        <p class="blog-post-meta">June 21, 2021</p>
-
-	<p>Dashie the Cyber Bunny is a playful little bunny girl, young and eager to learn. Being a bunny reflects the library's small and nimble nature. Her low-polygon costume reflects the library's purpose of managing matrices and vectors. </p>
-
-	<p>Mascot character designed by Tyson Tan. Tyson Tan offers mascot design service for free and open source software, free of charge, under free license.  <a href='https://www.tysontan.com/'>https://www.tysontan.com/</a></p>
-	
-	<p>3D Model by: Vic Wang Homepage : <a href='https://vidavic.artstation.com'>https://vidavic.artstation.com</a></p>
-
-        <hr>
-
-        <h2>Model Information</h2>
-        <ul>
-		<li>Triangles 1.6k</li>
-		<li>Quads 1.6k</li>
-		<li>Total Triangles 4.7k</li>
-		<li>Vertices 2.5k</li>
-		<li>Rigged</li>
-		<li>No Animations</li>
-		<li>FBX Format</li>
-        </ul>
-
-        <h2>License</h2>
+	<head>
 		
-		<p>CC0 1.0 Universal</p>
-	
-		<p>You're free to use this asset in any project, personal or commercial. There's no need to ask permission before using these. Giving attribution is not required, but is greatly appreciated!</p>
+		<!-- TITLE -->
 
-		<h2>Terms of Service</h2>
+		<title>ShellShop</title>
 
-		<p>
-			<p>
-			This is a simple page that was created for a proof of concept to use Turtlecoin
-			as a payment option for online checkout. To complete the payment process, click
-			on the 'Checkout' button, scan the QR code with the TonChan wallet, and send
-			the amount. From there confirmation of the payment will take anywhere from
-			two to five minutes. After which, your download will start automatically.
-			</p>
+		<!-- META INFORMATION -->
 
-			<p>
-			As this page was created as a proof of concept, the amount required was
-			created to be intentionally small. The model offered as a download can be
-			download directly from <a href='assets/dashie.rar?paymentId=bypass'>here</a>. 
-			This page is intended as a test for developers to clone, no refunds will be offered.
-			</p>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="description" content="Web site created using create-react-app" />
 			
-			<p>
-			Once the amount for the checkout has been paid for, the download link will be 
-			active for one hour. And this site doesn't use any form of cookies, or information
-			stored to your device to track you, so reloading the page will require you to go
-			through checkout again. The purpose of this page is a proof-of-concept checkout,
-			and the product here can be downloaded freely. 
-			</p>
+		<!-- LINK INFORMATION -->
 
-		</p>
+		<link rel="icon" href="%PUBLIC_URL%/icons/turtle.png" />
+		<link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/logo192.png" />
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-      </article>
+	</head>
+	<body>
 
-    </div>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<div id="root"></div>
 
-    <div class="col-md-4">
-      <div class="position-sticky" style="top: 5rem;">
-        <div class="p-3 mb-3 rounded purchase">
-          <h4 class='price'>500.00 $trtl</h4>
-		  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Checkout</button> -->
-		  <button type="button" class="btn btn-primary" id="checkout">Checkout</button>
-        </div>
-
-        <div class="p-3">
-          <h4>Stats</h4>
-          <ol class="list-unstyled mb-0">
-            <li>
-				<table>
-					<tr>
-						<td class='icon'>
-							<span class="material-icons md-18">visibility</span>
-						</td>
-						<td class='label'>Views</td>
-						<td class='num'>
-							<a>{{views}}</a>
-						</td>
-					</tr>
-				</table>
-			</li>
-            <li>
-				<table>
-					<tr>
-						<td class='icon'>
-							<span class="material-icons md-18">download</span>
-						</td>
-						<td class='label'>Downloads</td>
-						<td class='num'>
-							<a id='downloads'>
-								{{downloads}}
-							</a>
-						</td>
-					</tr>
-				</table>
-			</li>
-
-          </ol>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</main>
-</div>
-
-<footer class="blog-footer">
-  <p>Copyright &copy; 2021 Benjamin Collins | MIT License</p>
-  <p>
-<a href="https://turtlepay.io">
-  <img src="https://badge.turtlepay.io/" alt="Powered by TurtlePay" />
-</a>
-  </p>
-</footer>
-
-
-<script type='text/javascript' src='lib/qrcode.min.js'></script>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-<script type='text/javascript' src='js/payment.js'></script>
-    
-  </body>
+	</body>
 </html>
