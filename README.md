@@ -5,7 +5,9 @@ powered by TurtlePay.
 
 ![Screenshot 2021-06-24 at 16-45-10 Shell Shop](https://user-images.githubusercontent.com/86194145/123223117-966cc780-d50b-11eb-98e2-0aa10496b3e9.png)
 
-[###Live Version](https://shellshop.lol/)
+###Live Version
+
+[https://shellshop.lol/](https://shellshop.lol/)
 
 ### How to Use
 
