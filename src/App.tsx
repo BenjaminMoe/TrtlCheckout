@@ -5,27 +5,44 @@ import React from 'react';
 // Css Imports
 
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Component Imports
 
 import ShellHeader from './components/ShellHeader';
 import ShellGallery from './components/ShellGallery';
+import ShellProduct from './components/ShellProduct';
+import ShellFooter from './components/ShellFooter';
 
 // Define Application
 
-class App extends React.Component{
+type PageEnum = 'gallery' | 'product' | 'checkout';
+
+class App extends React.Component {
 
 	constructor(props: any) {
 		super(props);
+
+		console.log(typeof props);
+
+		this.state = {
+			page : 'gallery'
+		}
 	}
 
-	render ():JSX.Element {
+	setPage = (page: PageEnum) => {
+
+		console.log('Setting the page!!!');
+
+	}
+
+	render (): JSX.Element {
 
 		return (
 			<main>
 				<ShellHeader/>
 				<ShellGallery/>
+				<ShellProduct/>
+				<ShellFooter />
 			</main>
 		);
 

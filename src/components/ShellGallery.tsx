@@ -1,9 +1,9 @@
 import React from 'react'
 
-const MySummary = (props: Props): ReactNode => {
+const MySummary = (props :any) => {
 
 	return (
-		<div className="py-5 text-center container turtle-bg">
+		<div className="py-5 text-centerr turtle-bg">
 			<div className="row py-lg-5">
 				<div className="shop-text col-lg-6 col-md-8 mx-auto">
 					<h1 className="">Example Store Front</h1>
@@ -24,7 +24,7 @@ const MySummary = (props: Props): ReactNode => {
 
 }
 
-const MyCard = (props: Props): ReactNode => {
+const MyCard = (props: any) => {
 
 	return (
 		<div className="col">
@@ -53,7 +53,8 @@ const MyCard = (props: Props): ReactNode => {
 
 }
 
-const MyPagination = (props: Props): ReactNode => {
+/*
+const MyPagination = (props: any) => {
 
     return (
 		<nav className='my-pagination' aria-label="Page navigation example">
@@ -78,10 +79,11 @@ const MyPagination = (props: Props): ReactNode => {
     );
 
 }
+*/
 
 class ShellGallery extends React.Component {
 
-	constructor(props) {
+	constructor(props: any) {
 
 		super(props);
 
@@ -91,25 +93,24 @@ class ShellGallery extends React.Component {
 
 	}
 
-	render: ReactNode = () => {
+	render = () => {
 
 		return (
-			<section style={{ display : 'none' }}>
+			<section className="container" >
 				<MySummary/>
 				<div className="album py-5">
-					<div className="container">
-						<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-							<MyCard/>
-							<MyCard/>
-							<MyCard/>
-							<MyCard/>
-							<MyCard/>
-							<MyCard/>
-							<MyCard/>
-							<MyCard/>
-						</div>
-						<MyPagination/>
+					<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+						<MyCard/>
+						<MyCard/>
+						<MyCard/>
+						<MyCard/>
+						<MyCard/>
+						<MyCard/>
+						<MyCard/>
+						<MyCard/>
 					</div>
+
+					{ /* <MyPagination/> */ }
 				</div>
 			</section>
 		);

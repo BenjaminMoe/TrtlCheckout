@@ -2,7 +2,7 @@ import React from 'react'
 
 class ShellHeader extends React.Component {
 	
-	constructor(props) {
+	constructor(props: any) {
 		
 		super(props)
 
@@ -12,15 +12,19 @@ class ShellHeader extends React.Component {
 
 	}
 	
-	handleToggleClick: void = evt => {
+	handleToggleClick = (evt: any) => {
 		
+		/*
+		let openState = this.state.open;
+
 		this.setState({
-			open : !this.state.open
+			open : !openState
 		})
+		*/
 
 	}
 
-	render: ReactNode = (props: Props)=> {
+	render() {
 
 		return (
 			<header className="sticky-top border-bottom mb-4 navbar navbar-light bg-light">
@@ -34,7 +38,7 @@ class ShellHeader extends React.Component {
 							My Cart
 						</a>
 					</ul>
-					<ul className={"dropdown-menu " + (this.state.open ? 'show' : '')} aria-labelledby="navbarDropdownMenuLink">
+					<ul className="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
 						<li><a className="dropdown-item" href="#">Gallery</a></li>
 						<li><a className="dropdown-item" href="#">Product</a></li>
 						<li><a className="dropdown-item" href="#">Checkout</a></li>
