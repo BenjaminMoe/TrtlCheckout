@@ -1,9 +1,10 @@
 import React from 'react'
+import ShellIcon from '../images/shellicon.png'
 
 class ShellHeader extends React.Component {
-	
-	constructor(props: any) {
-		
+
+	constructor(props) {
+
 		super(props)
 
 		this.state = {
@@ -11,16 +12,14 @@ class ShellHeader extends React.Component {
 		}
 
 	}
-	
-	handleToggleClick = (evt: any) => {
-		
-		/*
+
+	handleToggleClick = (e) => {
+
 		let openState = this.state.open;
 
 		this.setState({
 			open : !openState
 		})
-		*/
 
 	}
 
@@ -30,6 +29,7 @@ class ShellHeader extends React.Component {
 			<header className="sticky-top border-bottom mb-4 navbar navbar-light bg-light">
 				<div className="container">
 					<a className="navbar-brand" href="#">
+						<img src={ShellIcon} alt="" width="30" height="30" className="d-inline-block align-text-top"/>
 						<span>ShellShop</span>
 					</a>
 
@@ -38,7 +38,7 @@ class ShellHeader extends React.Component {
 							My Cart
 						</a>
 					</ul>
-					<ul className="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+					<ul className={"dropdown-menu " + (this.state.open ? "show" : "")} aria-labelledby="navbarDropdownMenuLink">
 						<li><a className="dropdown-item" href="#">Gallery</a></li>
 						<li><a className="dropdown-item" href="#">Product</a></li>
 						<li><a className="dropdown-item" href="#">Checkout</a></li>

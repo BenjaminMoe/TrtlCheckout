@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MySummary = (props :any) => {
+const MySummary = (props) => {
 
 	return (
 		<div className="py-5 text-centerr turtle-bg">
@@ -24,7 +24,7 @@ const MySummary = (props :any) => {
 
 }
 
-const MyCard = (props: any) => {
+const MyCard = (props) => {
 
 	return (
 		<div className="col">
@@ -53,8 +53,7 @@ const MyCard = (props: any) => {
 
 }
 
-/*
-const MyPagination = (props: any) => {
+const MyPagination = (props) => {
 
     return (
 		<nav className='my-pagination' aria-label="Page navigation example">
@@ -79,7 +78,6 @@ const MyPagination = (props: any) => {
     );
 
 }
-*/
 
 class ShellGallery extends React.Component {
 
@@ -109,8 +107,7 @@ class ShellGallery extends React.Component {
 						<MyCard/>
 						<MyCard/>
 					</div>
-
-					{ /* <MyPagination/> */ }
+					<MyPagination/>
 				</div>
 			</section>
 		);

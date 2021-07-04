@@ -111,18 +111,17 @@ const MyCart = () => {
 }
 
 
-
 class ShellProduct extends React.Component {
 
-	constructor(props: any) {
-		super(props);
+	constructor(props) {
+		super(props)
 		this.state = {}
 	}
 
 	render () {
 
 		return (
-			<section className="container" style={{ display : 'none' }}>
+			<section className="container">
 				<MyCarousel />
 				<div className="row g-5">
 					<MyDescription />
